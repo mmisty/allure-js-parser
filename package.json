@@ -18,9 +18,10 @@
     "build": "rm -rf dist && tsc --project tsconfig.build.json &&  cp package-publish.json ./dist/package.json && cp README-pack.md ./dist/README.md",
     "pack": "npm run build && cd dist && npm pack",
     "publish": "npm run build && cd dist && npm version $(semver $(npm show . version) --increment -i patch) --no-git-tag-version && npm publish",
+    "publish:patch": "npm run publish",
     "publish:minor": "npm run build && cd dist && npm version $(semver $(npm show . version) --increment -i minor) --no-git-tag-version && npm publish",
     "publish:major": "npm run build && cd dist && npm version $(semver $(npm show . version) --increment -i major) --no-git-tag-version && npm publish",
-    "prepublishOnly": "npm run publish && false",
+    "prepublishOnly": "echo 'USE script \"npm run publish:patch\" (or minor/major)\n' && false",
     "fmt": "pretty-quick"
   },
   "keywords": [

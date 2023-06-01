@@ -1,3 +1,3 @@
-# npm-package-template
+# allure-ts-parser
 
-template for creating npm package with ts
+Parse allure-results and put into typed object
