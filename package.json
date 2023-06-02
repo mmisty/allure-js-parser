@@ -18,9 +18,9 @@
     "build": "rm -rf dist && tsc --project tsconfig.build.json &&  cp package-publish.json ./dist/package.json && cp README-pack.md ./dist/README.md",
     "pack": "npm run build && cd dist && npm pack",
     "publish": "npm run publish:patch",
-    "publish:patch": "npm run prepublish && cd dist && export ver=$(semver $(npm show . version) --increment -i patch) && npm version $ver && npm publish && git tag $ver",
-    "publish:minor": "npm run prepublish && cd dist && export ver=$(semver $(npm show . version) --increment -i minor) && npm version $ver && npm publish && git tag $ver",
-    "publish:major": "npm run prepublish && cd dist && export ver=$(semver $(npm show . version) --increment -i major) && npm version $ver && npm publish && git tag $ver",
+    "publish:patch": "npm run prepublish && cd dist && export ver=$(semver $(npm show . version) --increment -i patch) && npm version $ver && npm publish && git tag $ver && git push --tags",
+    "publish:minor": "npm run prepublish && cd dist && export ver=$(semver $(npm show . version) --increment -i minor) && npm version $ver && npm publish && git tag $ver && git push --tags",
+    "publish:major": "npm run prepublish && cd dist && export ver=$(semver $(npm show . version) --increment -i major) && npm version $ver && npm publish && git tag $ver && git push --tags",
     "prepublishOnly": "echo 'USE script \"npm run publish:patch\" (or minor/major)\n' && false",
     "fmt": "pretty-quick"
   },
