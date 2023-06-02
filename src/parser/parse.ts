@@ -7,10 +7,10 @@ const PACK = '[allure-js-parser]';
 const glob = require('fast-glob');
 
 // eslint-disable-next-line no-console
-const log = (...args: unknown[]) => console.log(`${PACK} `, ...args);
+const log = (...args: unknown[]) => console.log(`${PACK}`, ...args);
 
 // eslint-disable-next-line no-console
-const logError = (...args: unknown[]) => console.error(`${PACK} `, ...args);
+const logError = (...args: unknown[]) => console.error(`${PACK}`, ...args);
 
 function isResult(obj: Record<string, any>): obj is AllureTest {
   return !obj.children && obj.uuid && obj.name;
@@ -132,5 +132,8 @@ export const parseAllure = (directoryPath: string, config?: { failOnError?: bool
   }
 
   // got all tests, getting all parents for test
-  return populateParents(pureTestCases, containers);
+  const tests = populateParents(pureTestCases, containers);
+  log('Done');
+
+  return tests;
 };
