@@ -1,7 +1,7 @@
 {
   "name": "allure-js-parser",
   "version": "0.0.1",
-  "description": "allure-js-parser",
+  "description": "The package allows you to parse allure-results raw files and convert them into a typed object",
   "main": "./index",
   "repository": "git@github.com:mmisty/allure-js-parser.git",
   "publishConfig": {
@@ -9,5 +9,5 @@
   },
   "author": "Taisia Pitko (mmisty) <minydas@yandex.ru>",
   "license": "MIT",
-  "keywords": ["template"]
+  "keywords": ["allure", "parser", "json", "results", "tests", "statistics", "allure-js-parser"]
 }

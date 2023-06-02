@@ -24,9 +24,6 @@
     "prepublishOnly": "echo 'USE script \"npm run publish:patch\" (or minor/major)\n' && false",
     "fmt": "pretty-quick"
   },
-  "keywords": [
-    "template"
-  ],
   "devDependencies": {
     "@jest/console": "^29.5.0",
     "@types/jest": "^29.5.2",

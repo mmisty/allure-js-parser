@@ -25,8 +25,6 @@ Once parsed, you can utilize the tests object to filter specific tests or genera
 statistics based on your requirements.
 
 For instance, here's an example that filters all tests with the "regression" tag:
-
-Example (will find all tests with tag regression): 
 ```typescript
 const regressionTests = tests.filter(t => t.labels.some(t => t.name === 'tag' && t.value === 'regression'))
 ```
