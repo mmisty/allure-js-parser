@@ -1,5 +1,4 @@
 import { CustomConsole, LogMessage, LogType } from '@jest/console';
-import WriteStream = NodeJS.WriteStream;
 
 export const dateStr = () => {
   const date = new Date(Date.now());

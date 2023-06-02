@@ -1,9 +1,10 @@
 module.exports = {
-  testMatch: ['**/src/**/(*.)+(spec|test).[t]s?(x)', '!**/dist/**/*.*'],
+  testMatch: ['**/src/tests/**/(*.)+(spec|test).[t]s?(x)', '!**/dist/**/*.*'],
   collectCoverage: false,
   transform: {
     '.(ts)$': 'ts-jest',
   },
+  reporters: ['default'],
   moduleFileExtensions: ['ts', 'js'],
   clearMocks: true,
   coverageDirectory: 'reports/coverage-jest',

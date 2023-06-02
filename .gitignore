@@ -66,3 +66,7 @@ typings/
 
 #misc
 .DS_store
+
+#test
+/allure-results
+/allure-report

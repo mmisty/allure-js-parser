@@ -1,5 +1,5 @@
 {
-  "name": "allure-ts-parser",
+  "name": "allure-js-parser",
   "version": "0.0.0",
   "description": "allure-js-parser",
   "main": "./dist/index",
@@ -14,13 +14,13 @@
     "test": "CONSOLE=true jest",
     "test:cov": "CONSOLE=false jest --coverage",
     "lint": "eslint --ext '.js,.ts' . --ignore-path .gitignore",
-    "prepublish": "npm run fmt && npm run build",
+    "prepublish": "npm run test:cov && npm run build",
     "build": "rm -rf dist && tsc --project tsconfig.build.json &&  cp package-publish.json ./dist/package.json && cp README-pack.md ./dist/README.md",
     "pack": "npm run build && cd dist && npm pack",
-    "publish": "npm run build && cd dist && npm version $(semver $(npm show . version) --increment -i patch) --no-git-tag-version && npm publish",
-    "publish:patch": "npm run publish",
-    "publish:minor": "npm run build && cd dist && npm version $(semver $(npm show . version) --increment -i minor) --no-git-tag-version && npm publish",
-    "publish:major": "npm run build && cd dist && npm version $(semver $(npm show . version) --increment -i major) --no-git-tag-version && npm publish",
+    "publish": "npm run publish:patch",
+    "publish:patch": "npm run prepublish && cd dist && npm version $(semver $(npm show . version) --increment -i patch) --no-git-tag-version && npm publish",
+    "publish:minor": "npm run prepublish && cd dist && npm version $(semver $(npm show . version) --increment -i minor) --no-git-tag-version && npm publish",
+    "publish:major": "npm run prepublish && cd dist && npm version $(semver $(npm show . version) --increment -i major) --no-git-tag-version && npm publish",
     "prepublishOnly": "echo 'USE script \"npm run publish:patch\" (or minor/major)\n' && false",
     "fmt": "pretty-quick"
   },
@@ -32,6 +32,7 @@
     "@types/jest": "^29.5.2",
     "@types/node": "^20.2.5",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "allure-commandline": "^2.22.1",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -45,6 +46,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "allure-ts-parser": "^0.0.26"
+    "allure-js-commons": "^2.4.0",
+    "fast-glob": "^3.2.12"
   }
 }
