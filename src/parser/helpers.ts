@@ -36,3 +36,22 @@ export const getSummary = (
     { passed: 0, failed: 0, skipped: 0, broken: 0, unknown: 0 },
   );
 };
+
+/**
+ * Get parents into array, first - closes parent of the test
+ * @param node - test or container
+ * @param res - results
+ */
+export const getParentsArray = (node?: AllureNode, res: Parent[] = []): Parent[] => {
+  if (node?.parent) {
+    res.push(node.parent);
+
+    return getParentsArray(node.parent, res);
+  }
+
+  if (node && !isContainer(node)) {
+    return res;
+  }
+
+  return res;
+};

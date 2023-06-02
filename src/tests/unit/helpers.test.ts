@@ -1,4 +1,4 @@
-import { getRootSuite, getSummary } from '../../parser/helpers';
+import { getParentsArray, getRootSuite, getSummary } from '../../parser/helpers';
 import { AllureTest } from '../../types';
 import { parseAllure } from '../../parser/parse';
 import path from 'path';
@@ -20,6 +20,29 @@ describe('helpers', () => {
       broken: 0,
       unknown: 0,
     });
+  });
+
+  it('getParentsArray', () => {
+    const counts = res.map(t => ({ name: t.name, parents: getParentsArray(t).map(p => p.name) }));
+
+    expect(counts).toEqual([
+      {
+        name: 'should be red',
+        parents: ['tomato', 'fruits'],
+      },
+      {
+        name: 'should have stick',
+        parents: ['apples', 'fruits'],
+      },
+      {
+        name: 'no suite test',
+        parents: [],
+      },
+      {
+        name: 'should wight ~100-400 gramms',
+        parents: ['apples', 'fruits'],
+      },
+    ]);
   });
 
   it('summaryNumbers with filter', () => {
