@@ -26,4 +26,16 @@ describe('unit', () => {
       /No allure-results in folder \(did you forgot to run tests\?\)\. Path '.*\/allure-data\/fail-container'/,
     );
   });
+
+  it('should not throw when process has failOnError false', () => {
+    process.env.failOnError = 'false';
+    const res = () => parseAllure(path.resolve(`${process.cwd()}/src/tests/not-exist`));
+    expect(res()).toEqual([]);
+  });
+
+  it('should throw when process has failOnError true', () => {
+    process.env.failOnError = 'true';
+    const res = () => parseAllure(path.resolve(`${process.cwd()}/src/tests/not-exist`));
+    expect(res).toThrow(/No allure-results folder: .*\/src\/tests\/not-exist/);
+  });
 });

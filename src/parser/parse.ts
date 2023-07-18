@@ -1,5 +1,8 @@
+import Debug from 'debug';
 import { AllureContainer, AllureNode, AllureTest } from '../types';
 import * as fs from 'fs';
+
+const debug = Debug('allure-js-parser:parse');
 
 const PACK = '[allure-js-parser]';
 
@@ -7,6 +10,7 @@ const PACK = '[allure-js-parser]';
 const glob = require('fast-glob');
 
 // eslint-disable-next-line no-console
+const debugLog = (...args: unknown[]) => debug(args);
 const log = (...args: unknown[]) => console.log(`${PACK}`, ...args);
 
 // eslint-disable-next-line no-console
@@ -109,7 +113,9 @@ const exitWhenFailOnError = (failOnError: boolean, err: string) => {
 };
 
 export const parseAllure = (directoryPath: string, config?: { failOnError?: boolean }): AllureTest[] => {
-  const failOnError: boolean = config?.failOnError !== undefined ? config.failOnError : false;
+  const env = process.env['failOnError'] !== undefined ? process.env.failOnError !== 'false' : false;
+
+  const failOnError: boolean = config?.failOnError !== undefined ? config.failOnError : env;
 
   if (!fs.existsSync(directoryPath)) {
     exitWhenFailOnError(failOnError, `No allure-results folder: ${directoryPath}\n`);
@@ -117,7 +123,7 @@ export const parseAllure = (directoryPath: string, config?: { failOnError?: bool
     return [];
   }
 
-  log(`Reading ${directoryPath}...`);
+  debugLog(`Reading ${directoryPath}...`);
 
   const pureTestCases = populateTestResults(directoryPath);
   const containers = populateContainers(directoryPath);
@@ -133,7 +139,7 @@ export const parseAllure = (directoryPath: string, config?: { failOnError?: bool
 
   // got all tests, getting all parents for test
   const tests = populateParents(pureTestCases, containers);
-  log('Done');
+  debugLog('Done');
 
   return tests;
 };
