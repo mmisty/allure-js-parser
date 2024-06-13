@@ -15,7 +15,7 @@
     "test:cov": "CONSOLE=false jest --coverage",
     "lint": "eslint --ext '.js,.ts' . --ignore-path .gitignore",
     "prepublish": "npm run test:cov && npm run build",
-    "build": "rm -rf dist && tsc --project tsconfig.build.json && cp package.json ./dist/package.json && cp README-pack.md ./dist/README.md && cp CHANGELOG.md ./dist/CHANGELOG.md && sh .scripts/remove.sh && cd dist && npm version $ver --no-git-tag-version ",
+    "build": "rm -rf dist && tsc --project tsconfig.build.json && cp package.json ./dist/package.json && cp README-pack.md ./dist/README.md && sh .scripts/remove.sh && cd dist && npm version $ver --no-git-tag-version ",
     "pack": "npm run build && cd dist && npm pack",
     "publish": "npm run publish:patch",
     "prepublishOnly": "echo 'USE script \"npm run publish:patch\" (or minor/major)\n' && false",
