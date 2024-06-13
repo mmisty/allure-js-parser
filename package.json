@@ -26,6 +26,7 @@
     "publish:minor": "export TAG=latest && export ver=$(semver $(npm show . version) --increment -i minor) && npm run publishPack && npm run postpublish",
     "publish:major": "export TAG=latest && export ver=$(semver $(npm show . version) --increment -i major) && npm run publishPack && npm run postpublish",
     "publish:pack": "export TAG=alpha && export ver=\"1.0.3-alpha\" && npm run publishPack && npm run postpublish",
+    "postpublish": "git tag v$ver",
     "fmt": "pretty-quick"
   },
   "devDependencies": {
