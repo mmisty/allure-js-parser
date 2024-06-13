@@ -21,7 +21,8 @@
     "prepublishOnly": "echo 'USE script \"npm run publish:patch\" (or minor/major)\n' && false",
 
     "publishPack": "npm run prepublish && cd dist && npm publish --tag $TAG",
-    "publish:alpha": "export TAG=alpha && export ver=$(semver $(npm show . version) --increment -i prerelease  --preid 'alpha') && npm run publishPack && npm run postpublish",
+    "publish:alpha": "export TAG=alpha && export ver=$(semver $(npm show . version --tag alpha || npm show . version) --increment -i prerelease  --preid 'alpha') && npm run publishPack && npm run postpublish",
+    "publish:alpha:init": "export TAG=alpha && export ver=$(semver $(npm show . version) --increment -i prerelease  --preid 'alpha') && npm run publishPack && npm run postpublish",
     "publish:patch": "export TAG=latest && export ver=$(semver $(npm show . version) --increment -i patch) && npm run publishPack && npm run postpublish",
     "publish:minor": "export TAG=latest && export ver=$(semver $(npm show . version) --increment -i minor) && npm run publishPack && npm run postpublish",
     "publish:major": "export TAG=latest && export ver=$(semver $(npm show . version) --increment -i major) && npm run publishPack && npm run postpublish",
