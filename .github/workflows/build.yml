@@ -1,0 +1,94 @@
+name: NodeJS with Webpack
+permissions: write-all
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        registry-url: 'https://registry.npmjs.org'
+
+    - uses: volta-cli/action@v4
+    - name: Install
+      run: npm ci
+
+    - name: Versions
+      run: |
+        node --version
+        npm --version
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Build
+      run: npm run build
+
+    - name: Test Jest
+      run: npm run test:cov
+
+    - name: Archive code coverage results
+      if: success() || failure() # always run even if the previous step fails
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-report
+        path: ./reports/coverage-jest/lcov-report/
+
+    - name: Monitor coverage
+      if: success() || failure() # always run even if the previous step fails
+      uses: slavcodev/coverage-monitor-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        coverage_path: "reports/coverage-jest/clover.xml"
+
+    - name: Publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: |
+        branch=${{ github.ref }}
+        echo "Branch: $branch" 
+
+        gitmsg="${{ github.event.commits[0].message }}"
+        echo "Commit: $gitmsg" 
+        
+        if [[ "$gitmsg" =~ "[patch]" ]]; then
+          echo "publish patch"
+          npm run publish:patch
+          git push --tags
+          exit 0
+        fi 
+        
+        if [[ "$gitmsg" =~ "[fix]" ]]; then
+          echo "publish patch"
+          npm run publish:patch
+          git push --tags
+          exit 0
+        fi
+        
+        if [[ "$gitmsg" =~ "[minor]" ]]; then
+          echo "publish minor"
+          npm run publish:minor
+          git push --tags
+          exit 0
+        fi
+        
+        if [[ "$gitmsg" =~ "[major]" ]]; then
+          echo "publish major"
+          npm run publish:major
+          git push --tags
+          exit 0
+        fi
+        
+        echo "publishing alpha, for other commit message should contain [minor], [major] or [patch]/[fix]"
+        npm run publish:alpha
+        git push --tags

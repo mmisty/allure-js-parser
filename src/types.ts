@@ -1,4 +1,4 @@
-import { TestResult } from 'allure-js-commons/dist/src/model';
+import { TestResult } from 'allure-js-commons/dist/cjs/src/new/model';
 import type { StatusDetails, Parameter, Attachment, StepResult } from 'allure-js-commons';
 import { Stage } from 'allure-js-commons';
 

@@ -8,7 +8,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js'],
   clearMocks: true,
   coverageDirectory: 'reports/coverage-jest',
-  coverageReporters: ['text', 'lcov', 'cobertura', 'json'],
+  coverageReporters: ['text', 'lcov', 'cobertura', 'json', 'clover'],
   setupFilesAfterEnv: ['./jest.setup.ts'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', 'src/*.{ts,tsx}', '!**/node_modules/**'],
   testEnvironment: 'node',
