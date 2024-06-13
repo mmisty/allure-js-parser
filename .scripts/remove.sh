@@ -1,5 +1,5 @@
 #!/bin/bash
 
-sed '/"scripts":/,/},/d' lib/package.json > lib/temp.json
+sed '/"scripts":/,/},/d' dist/package.json > dist/temp.json
 
-mv lib/temp.json lib/package.json
+mv dist/temp.json dist/package.json
