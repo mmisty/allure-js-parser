@@ -11,7 +11,8 @@
   "license": "MIT",
   "keywords": ["allure", "parser", "json", "results", "tests", "statistics", "allure-js-parser"],
   "dependencies": {
-    "allure-js-commons": "^2.4.0",
-    "fast-glob": "^3.2.12"
+    "allure-js-commons": "^2.15.1",
+    "debug": "^4.3.5",
+    "fast-glob": "^3.3.2"
   }
 }
