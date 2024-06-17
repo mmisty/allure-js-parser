@@ -2,8 +2,8 @@
   "name": "allure-js-parser",
   "version": "0.0.0",
   "description": "allure-js-parser",
-  "main": "./dist/index",
-  "types": "./dist/index.d.ts",
+  "main": "./index",
+  "types": "./index.d.ts",
   "repository": "git@github.com:mmisty/allure-js-parser.git",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
