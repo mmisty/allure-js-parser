@@ -16,6 +16,7 @@ export type AllureTest = TestResult & {
 export type AllureNode = AllureTest | AllureContainer | Parent;
 
 export type AllureHook = {
+  name: string;
   status: string;
   statusDetails: AllureStatusDetails;
   stage: 'finished' | string; // todo type when necessary
