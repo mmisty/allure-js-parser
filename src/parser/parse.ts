@@ -114,7 +114,10 @@ const exitWhenFailOnError = (failOnError: boolean, err?: string) => {
   }
 };
 
-export const parseAllure = (directoryPath: string, config?: { failOnError?: boolean, logError?: boolean }): AllureTest[] => {
+export const parseAllure = (
+  directoryPath: string,
+  config?: { failOnError?: boolean; logError?: boolean },
+): AllureTest[] => {
   const env = process.env['failOnError'] !== undefined ? process.env.failOnError !== 'false' : false;
 
   const failOnError: boolean = config?.failOnError !== undefined ? config.failOnError : env;
