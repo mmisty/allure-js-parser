@@ -103,22 +103,28 @@ const populateParents = (testCases: AllureTest[], containers: AllureContainer[])
     return test;
   });
 
-const exitWhenFailOnError = (failOnError: boolean, err: string) => {
+const exitWhenFailOnError = (failOnError: boolean, err?: string) => {
   if (failOnError) {
     log('Exiting with status 1, to disable set failOnError=false in config');
     throw new Error(err);
   } else {
-    logError(err);
+    if (err) {
+      logError(err);
+    }
   }
 };
 
-export const parseAllure = (directoryPath: string, config?: { failOnError?: boolean }): AllureTest[] => {
+export const parseAllure = (
+  directoryPath: string,
+  config?: { failOnError?: boolean; logError?: boolean },
+): AllureTest[] => {
   const env = process.env['failOnError'] !== undefined ? process.env.failOnError !== 'false' : false;
 
   const failOnError: boolean = config?.failOnError !== undefined ? config.failOnError : env;
+  const logError: boolean = config?.logError ?? true;
 
   if (!fs.existsSync(directoryPath)) {
-    exitWhenFailOnError(failOnError, `No allure-results folder: ${directoryPath}\n`);
+    exitWhenFailOnError(failOnError, logError ? `No allure-results folder: ${directoryPath}\n` : undefined);
 
     return [];
   }
@@ -131,7 +137,7 @@ export const parseAllure = (directoryPath: string, config?: { failOnError?: bool
   if (pureTestCases.length === 0) {
     exitWhenFailOnError(
       failOnError,
-      `No allure-results in folder (did you forgot to run tests?). Path '${directoryPath}'`,
+      logError ? `No allure-results in folder (did you forgot to run tests?). Path '${directoryPath}'` : undefined,
     );
 
     return [];
